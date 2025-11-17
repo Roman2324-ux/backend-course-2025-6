@@ -96,6 +96,21 @@ app.get('/inventory/:id/photo', (req, res) => {
   res.sendFile(photoPath);
 });
 
+app.put('/inventory/:id/photo', upload.single('photo'), (req, res) => {
+  const { id } = req.params;
+  const item = inventory.find(i => i.id === id);
+  if (!item) {
+    return res.status(404).send('Not found');
+  }
+  if (req.file) {
+    item.photo = req.file.filename;
+    console.log(`[UPDATE PHOTO] Updated photo for item ID: ${id}`);
+    res.status(200).json(item);
+  } else {
+    res.status(400).send('Bad Request: photo file is required');
+  }
+});
+
 app.listen(port, host, () => {
   console.log(`Server is running on http://${host}:${port}`);
   console.log(`Photos will be saved to: ${uploadDir}`);
