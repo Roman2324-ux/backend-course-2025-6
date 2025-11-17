@@ -39,9 +39,7 @@ const inventory = [];
 app.use(express.json());
 
 app.post('/register', upload.single('photo'), (req, res) => {
-  
   const { inventory_name, description } = req.body;
-
   if (!inventory_name) {
     return res.status(400).send('Bad Request: inventory_name is required');
   }
@@ -56,6 +54,10 @@ app.post('/register', upload.single('photo'), (req, res) => {
   inventory.push(newItem);
   console.log(`[REGISTER] Added item: ${newItem.name} (ID: ${newItem.id})`);
   res.status(201).send(`Item registered with ID: ${newItem.id}`);
+});
+
+app.get('/inventory', (req, res) => {
+    res.status(200).json(inventory);
 });
 
 app.listen(port, host, () => {
