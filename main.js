@@ -60,6 +60,15 @@ app.get('/inventory', (req, res) => {
     res.status(200).json(inventory);
 });
 
+app.get('/inventory/:id', (req, res) => {
+  const { id } = req.params;
+  const item = inventory.find(i => i.id === id);
+  if (!item) {
+    return res.status(404).send('Not found');
+  }
+  res.status(200).json(item);
+});
+
 app.listen(port, host, () => {
   console.log(`Server is running on http://${host}:${port}`);
   console.log(`Photos will be saved to: ${uploadDir}`);
