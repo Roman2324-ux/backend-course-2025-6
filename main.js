@@ -69,6 +69,23 @@ app.get('/inventory/:id', (req, res) => {
   res.status(200).json(item);
 });
 
+app.put('/inventory/:id', (req, res) => {
+  const { id } = req.params;
+  const { inventory_name, description } = req.body;
+  const item = inventory.find(i => i.id === id);
+  if (!item) {
+    return res.status(404).send('Not found');
+  }
+  if (inventory_name) {
+    item.name = inventory_name;
+  }
+  if (description) {
+    item.description = description;
+  }
+  console.log(`[UPDATE] Updated item ID: ${id}`);
+  res.status(200).json(item);
+});
+
 app.listen(port, host, () => {
   console.log(`Server is running on http://${host}:${port}`);
   console.log(`Photos will be saved to: ${uploadDir}`);
