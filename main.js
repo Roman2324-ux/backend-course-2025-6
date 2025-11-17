@@ -131,6 +131,15 @@ app.get('/RegisterForm.html', (req, res) => {
   }
 });
 
+app.get('/SearchForm.html', (req, res) => {
+  const filePath = path.join(__dirname, 'SearchForm.html');
+  if (fs.existsSync(filePath)) {
+    res.sendFile(filePath);
+  } else {
+    res.status(404).send('SearchForm.html not found on server');
+  }
+});
+
 app.listen(port, host, () => {
   console.log(`Server is running on http://${host}:${port}`);
   console.log(`Photos will be saved to: ${uploadDir}`);
