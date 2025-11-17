@@ -111,6 +111,17 @@ app.put('/inventory/:id/photo', upload.single('photo'), (req, res) => {
   }
 });
 
+app.delete('/inventory/:id', (req, res) => {
+  const { id } = req.params;
+  const index = inventory.findIndex(i => i.id === id);
+  if (index === -1) {
+    return res.status(404).send('Not found');
+  }
+  const deletedItem = inventory.splice(index, 1)[0];
+  console.log(`[DELETE] Deleted item ID: ${id}`);
+  res.status(200).send(`Item with ID ${id} was deleted`);
+});
+
 app.listen(port, host, () => {
   console.log(`Server is running on http://${host}:${port}`);
   console.log(`Photos will be saved to: ${uploadDir}`);
