@@ -122,6 +122,15 @@ app.delete('/inventory/:id', (req, res) => {
   res.status(200).send(`Item with ID ${id} was deleted`);
 });
 
+app.get('/RegisterForm.html', (req, res) => {
+  const filePath = path.join(__dirname, 'RegisterForm.html');
+  if (fs.existsSync(filePath)) {
+    res.sendFile(filePath);
+  } else {
+    res.status(404).send('RegisterForm.html not found on server');
+  }
+});
+
 app.listen(port, host, () => {
   console.log(`Server is running on http://${host}:${port}`);
   console.log(`Photos will be saved to: ${uploadDir}`);
