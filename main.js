@@ -1,4 +1,9 @@
 const { program } = require('commander');
+const http = require('http');
+const fs = require('fs');
+const path = require('path');
+const express = require('express');
+const multer = require('multer');
 
 program
   .requiredOption('-h, --host <address>', 'Server address')
@@ -6,10 +11,54 @@ program
   .requiredOption('-c, --cache <path>', 'Path to cache directory');
 
 program.parse(process.argv);
-
 const options = program.opts();
+const host = options.host;
+const port = options.port;
+const cache = options.cache;
 
-console.log('Configuration loaded:');
-console.log(`Host: ${options.host}`);
-console.log(`Port: ${options.port}`);
-console.log(`Cache: ${options.cache}`);
+const uploadDir = path.resolve(cache);
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+  console.log(`[INFO] Created upload directory: ${uploadDir}`);
+}
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, uploadDir);
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
+  }
+});
+const upload = multer({ storage: storage });
+
+const app = express();
+const inventory = [];
+
+app.use(express.json());
+
+app.post('/register', upload.single('photo'), (req, res) => {
+  
+  const { inventory_name, description } = req.body;
+
+  if (!inventory_name) {
+    return res.status(400).send('Bad Request: inventory_name is required');
+  }
+
+  const newItem = {
+    id: Date.now().toString(), // Генеруємо ID
+    name: inventory_name,
+    description: description || '', // Якщо опис не задано, буде пустий рядок
+    photo: req.file ? req.file.filename : null // Ім'я файлу фото (якщо є)
+  };
+
+  inventory.push(newItem);
+  console.log(`[REGISTER] Added item: ${newItem.name} (ID: ${newItem.id})`);
+  res.status(201).send(`Item registered with ID: ${newItem.id}`);
+});
+
+app.listen(port, host, () => {
+  console.log(`Server is running on http://${host}:${port}`);
+  console.log(`Photos will be saved to: ${uploadDir}`);
+});
