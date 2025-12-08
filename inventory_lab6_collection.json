@@ -1,0 +1,272 @@
+{
+  "info": {
+    "_postman_id": "ffbd1412-6154-4315-887f-fc41511f8d84",
+    "name": "Inventory API Lab 6",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "50324830",
+    "_collection_link": "https://seaaes231-134522.postman.co/workspace/f1ef35c4-577f-4dfa-8db3-ba631e2f4bd0/collection/50324830-ffbd1412-6154-4315-887f-fc41511f8d84?action=share&source=collection_link&creator=50324830"
+  },
+  "item": [
+    {
+      "name": "POST /register – create inventory item",
+      "id": "2ba385fb-38dc-4351-aba9-f033556ede26",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "inventory_name",
+              "value": "Laptop",
+              "type": "text"
+            },
+            {
+              "key": "description",
+              "value": "HP Victus",
+              "type": "text"
+            },
+            {
+              "key": "photo",
+              "type": "file",
+              "src": "postman-cloud:///1f0d14f4-0bff-4970-9f05-497320877eee"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:3000/register",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "register"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET /inventory – list all",
+      "id": "b76993cc-3230-4fab-8261-03c9cb1a76f7",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/inventory",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "inventory"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET /inventory/{id} – get by ID",
+      "id": "3444e863-8f35-4ff3-b7f6-173a538b3e34",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/inventory/1765199904247",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "inventory",
+            "1765199904247"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "PUT /inventory/{id} – update name/description",
+      "id": "232bcdcf-3106-4b47-97d9-85d3eec7b4c0",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"inventory_name\": \"Iphone\",\r\n  \"description\": \" 15 Pro\"\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/inventory/1765199904247",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "inventory",
+            "1765199904247"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET /inventory/{id}/photo – get photo",
+      "id": "342112c6-64b7-45ee-9396-d70e8caf07ff",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/inventory/1765199904247/photo",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "inventory",
+            "1765199904247",
+            "photo"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "PUT /inventory/{id}/photo – update photo",
+      "id": "9e481803-db13-4fe2-be1a-0d8a4928f5e7",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "photo",
+              "type": "file",
+              "src": "postman-cloud:///1f0d43ad-7b30-4230-9827-6acd70b15377"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:3000/inventory/1765199904247/photo",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "inventory",
+            "1765199904247",
+            "photo"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "DELETE /inventory/{id} – delete item",
+      "id": "04b0156b-639f-4212-a3f7-d94bfa2a6fb5",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/inventory/1765199904247",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "inventory",
+            "1765199904247"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET /RegisterForm.html – register form page  Method: GET",
+      "id": "0a758859-b591-4617-b040-c581538c6fe2",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/RegisterForm.html",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "RegisterForm.html"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET /SearchForm.html – search form page",
+      "id": "a37fd15b-e093-4d69-8009-82a32acfcd77",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/SearchForm.html",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "SearchForm.html"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST /search – find by ID (form)",
+      "id": "a204a8a0-4c13-4ad0-a35d-14e2243b7ada",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "id",
+              "value": "1765201532034",
+              "type": "text"
+            },
+            {
+              "key": "has_photo",
+              "value": "true",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:3000/search",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "search"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
